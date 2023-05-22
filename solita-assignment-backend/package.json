@@ -1,0 +1,15 @@
+{
+  "name": "solita-assignment-backend",
+  "version": "1.0.0",
+  "description": "Solita Dev Academy pre-assignment backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tharindu Roshana Ranaweera",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
