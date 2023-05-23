@@ -1,7 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
+const cors = require('cors');
 
 const app = express();
+app.use(cors())
 
 const database_name = "helsinki_city_bike_db";
 const table_name = "trips";
@@ -73,6 +75,6 @@ app.get('/trips/:id', (req, res) => {
     });
 })
 
-app.listen(3000, () => {
-    console.log("Server listening on port: " + 3000);
+app.listen(4000, () => {
+    console.log("Server listening on port: " + 4000);
 })
