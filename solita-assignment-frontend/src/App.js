@@ -1,11 +1,16 @@
 import './App.css';
 import TripsTable from "./components/TripsTable";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TripScreen from "./components/TripScreen";
 
 function App() {
   return (
-    <div className="App">
-      <TripsTable />
-    </div>
+    <Router>
+        <Routes>
+            <Route path="/" element={<TripsTable />} />
+            <Route path="/trip/:id" element={<TripScreen />} />
+        </Routes>
+    </Router>
   );
 }
 

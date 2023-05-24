@@ -9,13 +9,21 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
-    {id: 'id', label: 'ID', minWidth: 170},
-    {id: 'departure_date', label: 'Departure', minWidth: 100},
+    {id: 'id', label: 'ID', minWidth: 50},
+    {id: 'departure_date', label: 'Departure', minWidth: 100, align: 'right'},
+    {id: 'return_date', label: 'Return', minWidth: 100, align: 'right'},
     {
         id: 'departure_station_name',
         label: 'Departure Station',
+        minWidth: 170,
+        align: 'right',
+    },
+    {
+        id: 'return_station_name',
+        label: 'Return Station',
         minWidth: 170,
         align: 'right',
     },
@@ -37,6 +45,7 @@ const TripsTable = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [trips, setTrips] = useState([]);
+    const navigate = useNavigate();
 
     const fetchTrips = async () => {
         try {
@@ -61,6 +70,10 @@ const TripsTable = () => {
         setPage(0);
     };
 
+    const handleOnClick = (key) => {
+        navigate(`/trip/${key}`);
+    }
+
     const renderTripsTable = () => {
         return (
             <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -84,7 +97,7 @@ const TripsTable = () => {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                        <TableRow onClick={() => handleOnClick(row.id)} hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
                                                 const value = row[column.id];
                                                 return (
