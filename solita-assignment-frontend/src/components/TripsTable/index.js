@@ -59,7 +59,7 @@ const TripsTable = () => {
 
     useEffect(() => {
         fetchTrips();
-    });
+    }, []);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
