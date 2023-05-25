@@ -58,6 +58,8 @@ app.get('/trips/:id', (req, res) => {
         }
 
         connection.query(`SELECT * FROM ${table_name} WHERE id = ?`, [id], (error, results) => {
+            connection.release();
+
             if (err) {
                 // Handle query error
                 console.error('Error executing query', err);
