@@ -1,0 +1,15 @@
+.trip-table {
+    padding: 10px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.trips-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.trips-title {
+}
