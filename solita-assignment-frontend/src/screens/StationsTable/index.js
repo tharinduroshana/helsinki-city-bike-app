@@ -5,8 +5,9 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const columns = [
-    {id: 'station_id', label: 'Station ID'},
-    {id: 'station_name', label: 'Station Name', align: 'right'},
+    {id: 'id', label: 'ID'},
+    {id: 'name', label: 'Station Name', align: 'right'},
+    {id: 'adress', label: 'Address', align: 'right'},
 ];
 
 const StationsTable = () => {
