@@ -104,6 +104,52 @@ app.get('/stations', (req, res) => {
     });
 });
 
+app.get('/stations/:id', (req, res) => {
+    const { params: { id } } = req;
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            // Handle connection error
+            console.error('Error connecting from pool', err);
+            return res.status(500).json({ error: 'Error connecting to database' });
+        }
+
+        connection.query(`SELECT id, name, adress from stations WHERE id = ${id}`, (err, stationInfo) => {
+
+            if (err) {
+                // Handle query error
+                console.error('Error executing query', err);
+                return res.status(500).json({ error: 'Error executing query' });
+            }
+
+            connection.query(`SELECT COUNT(*) from ${table_name} WHERE departure_station_id = ${id}`, (err, departures) => {
+
+                if (err) {
+                    // Handle query error
+                    console.error('Error executing query', err);
+                    return res.status(500).json({ error: 'Error executing query' });
+                }
+
+                connection.query(`SELECT COUNT(*) from ${table_name} WHERE return_station_id = ${id}`, (err, returns) => {
+                    connection.release();
+
+                    if (err) {
+                        // Handle query error
+                        console.error('Error executing query', err);
+                        return res.status(500).json({ error: 'Error executing query' });
+                    }
+
+                    res.json({
+                        details: stationInfo[0],
+                        departure_count: departures[0]['COUNT(*)'],
+                        returns_count: returns[0]['COUNT(*)']
+                    });
+                });
+            });
+        });
+    });
+});
+
 app.listen(4000, () => {
     console.log("Server listening on port: " + 4000);
 })
