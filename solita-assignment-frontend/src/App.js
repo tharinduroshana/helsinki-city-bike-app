@@ -1,8 +1,8 @@
 import './App.css';
-import TripsTable from "./components/TripsTable";
+import TripsTable from "./screens/TripsTable";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import TripScreen from "./components/TripScreen";
-import StationsTable from "./components/StationsTable";
+import TripScreen from "./screens/TripScreen";
+import StationsTable from "./screens/StationsTable";
 
 function App() {
   return (

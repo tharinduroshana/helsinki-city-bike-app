@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TableComponent from "../Table";
+import TableComponent from "../../components/Table";
 import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";

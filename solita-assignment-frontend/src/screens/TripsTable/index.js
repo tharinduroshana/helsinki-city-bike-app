@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import "./TripsTable.css";
-import TableComponent from "../Table";
+import TableComponent from "../../components/Table";
 
 const columns = [
     {id: 'id', label: 'ID'},
