@@ -89,7 +89,7 @@ app.get('/stations', (req, res) => {
             return res.status(500).json({ error: 'Error connecting to database' });
         }
 
-        connection.query(`SELECT station_id, station_name from (SELECT DISTINCT return_station_id as station_id, return_station_name as station_name FROM ${table_name} UNION SELECT DISTINCT departure_station_id AS station_id, departure_station_name as station_name FROM ${table_name}) AS all_stations LIMIT ${pageSize} OFFSET ${offset}`, (err, results) => {
+        connection.query(`SELECT DISTINCT id, adress, operaattor from stations LIMIT ${pageSize} OFFSET ${offset}`, (err, results) => {
             connection.release();
 
             if (err) {
