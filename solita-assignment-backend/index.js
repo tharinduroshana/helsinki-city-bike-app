@@ -75,7 +75,34 @@ app.get('/trips/:id', (req, res) => {
             res.json(results[0]);
         });
     });
-})
+});
+
+app.get('/stations', (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page number from query parameter, default to 1
+    const pageSize = parseInt(req.query.pageSize) || 10; // Get the page size from query parameter, default to 10
+    const offset = (page - 1) * pageSize;
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            // Handle connection error
+            console.error('Error connecting from pool', err);
+            return res.status(500).json({ error: 'Error connecting to database' });
+        }
+
+        connection.query(`SELECT station_id, station_name from (SELECT DISTINCT return_station_id as station_id, return_station_name as station_name FROM ${table_name} UNION SELECT DISTINCT departure_station_id AS station_id, departure_station_name as station_name FROM ${table_name}) AS all_stations LIMIT ${pageSize} OFFSET ${offset}`, (err, results) => {
+            connection.release();
+
+            if (err) {
+                // Handle query error
+                console.error('Error executing query', err);
+                return res.status(500).json({ error: 'Error executing query' });
+            }
+
+            res.setHeader('Content-Type', 'application/json');
+            res.json(results);
+        });
+    });
+});
 
 app.listen(4000, () => {
     console.log("Server listening on port: " + 4000);
