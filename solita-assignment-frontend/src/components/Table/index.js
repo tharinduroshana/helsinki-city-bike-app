@@ -6,15 +6,18 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import {Table} from "@mui/material";
+import { useRef } from "react";
 
 const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler, changePageHandler, rowPerPageHandler, pageCount }) => {
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
   return (
       <div className="trip-table">
           <Paper sx={{width: '100%', overflow: 'hidden'}}>
-              <TableContainer sx={{maxHeight: 500}}>
+              <TableContainer sx={{height: windowSize.current[1] * 3 / 4}}>
                   <Table stickyHeader aria-label="sticky table">
                       <TableHead>
-                          <TableRow>
+                          <TableRow style={{ backgroundColor: 'blue' }}>
                               {columns.map((column) => (
                                   <TableCell
                                       key={column.id}
@@ -48,7 +51,7 @@ const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler,
                   </Table>
               </TableContainer>
               <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
+                  rowsPerPageOptions={[25, 50, 100]}
                   component="div"
                   count={pageCount}
                   rowsPerPage={rowsPerPage}

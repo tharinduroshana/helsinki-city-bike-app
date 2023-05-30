@@ -13,7 +13,7 @@ const StationsTable = () => {
     const [ stations, setStations ] = useState([]);
     const [ pageCount, setPageCount ] = useState(0);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(25);
     const navigate = useNavigate();
     const fetchStations = async () => {
         try {
