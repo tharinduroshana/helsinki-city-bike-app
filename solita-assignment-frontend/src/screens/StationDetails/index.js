@@ -11,7 +11,7 @@ const StationDetails = () => {
         try {
             const trip = await fetch(`http://localhost:4000/stations/${id}`);
             const json = await trip.json();
-            console.log(json)
+            
             setStationInfo(json);
         } catch (e) {
             console.error(`Error fetching trip with ID: ${id}`, e);
