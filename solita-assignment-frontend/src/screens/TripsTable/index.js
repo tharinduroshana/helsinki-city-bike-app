@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import "./TripsTable.css";
 import TableComponent from "../../components/Table";
+import NavBar from "../../components/NavBar";
 
 const columns = [
     {id: 'id', label: 'ID'},
@@ -94,7 +95,7 @@ const TripsTable = () => {
 
     return (
         <div className="trips-screen">
-            <h1 className="trips-title">Helsinki City Bike App</h1>
+            <h1 className="trips-title">Trips</h1>
             {trips.length === 0 ? (renderSpinner()) : (renderTripsTable())}
         </div>
     );
