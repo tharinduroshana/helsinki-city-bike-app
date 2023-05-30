@@ -30,8 +30,8 @@ const StationsTable = () => {
         fetchStations();
     }, []);
 
-    const handleOnClick = () => {
-
+    const handleOnClick = (key) => {
+        navigate(`/stations/${key}`);
     }
 
     const renderSpinner = () => {
