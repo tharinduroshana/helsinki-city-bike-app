@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import TableComponent from "../../components/Table";
 import {useNavigate} from "react-router-dom";
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const columns = [
     {id: 'id', label: 'ID'},
@@ -34,14 +33,6 @@ const StationsTable = () => {
         navigate(`/stations/${key}`);
     }
 
-    const renderSpinner = () => {
-        return (
-            <Box sx={{display: 'flex'}}>
-                <CircularProgress/>
-            </Box>
-        );
-    }
-
     const renderStationsTable = () => {
         return (
             <>
@@ -62,7 +53,7 @@ const StationsTable = () => {
         <>
             <div className="trips-screen">
                 <h1 className="trips-title">Stations</h1>
-                {stations.length === 0 ? (renderSpinner()) : (renderStationsTable())}
+                {stations.length === 0 ? (<LoadingSpinner />) : (renderStationsTable())}
             </div>
         </>
     );
