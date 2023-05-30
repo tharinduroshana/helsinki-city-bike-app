@@ -4,12 +4,9 @@ import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import "./TripsTable.css";
 import TableComponent from "../../components/Table";
-import NavBar from "../../components/NavBar";
 
 const columns = [
     {id: 'id', label: 'ID'},
-    {id: 'departure_date', label: 'Departure', align: 'right'},
-    {id: 'return_date', label: 'Return', align: 'right'},
     {
         id: 'departure_station_name',
         label: 'Departure Station',
@@ -22,12 +19,12 @@ const columns = [
     },
     {
         id: 'covered_distance',
-        label: 'Distance (m)',
+        label: 'Distance (km)',
         align: 'right',
     },
     {
         id: 'duration',
-        label: 'Duration (s)',
+        label: 'Duration (min)',
         align: 'right',
     },
 ];
@@ -44,8 +41,10 @@ const TripsTable = () => {
             const response = await fetch(`http://localhost:4000/trips?page=${page + 1}&pageSize=${rowsPerPage}`);
             const json = await response.json();
             const { trips, pageCount } = json;
+
             console.log(trips);
-            setTrips(trips);
+            const mappedTripps = trips.map(trip => ({ ...trip, covered_distance: (Math.round((trip['covered_distance']/1000) * 100) / 100).toFixed(2), duration: (Math.round((trip['duration']/60) * 100) / 100).toFixed(2) }));
+            setTrips(mappedTripps);
             setPageCount(pageCount);
         } catch (e) {
             console.error("Error fetching trips.", e);
