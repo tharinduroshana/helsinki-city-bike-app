@@ -33,15 +33,19 @@ const columns = [
 
 const TripsTable = () => {
     const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
 
     const fetchTrips = async () => {
         try {
-            const response = await fetch('http://localhost:4000/trips');
+            const response = await fetch(`http://localhost:4000/trips?page=${page + 1}&pageSize=${rowsPerPage}`);
             const json = await response.json();
-            setTrips(json);
+            const { trips, pageCount } = json;
+            console.log(trips);
+            setTrips(trips);
+            setPageCount(pageCount);
         } catch (e) {
             console.error("Error fetching trips.", e);
         }
@@ -49,14 +53,14 @@ const TripsTable = () => {
 
     useEffect(() => {
         fetchTrips();
-    }, []);
+    }, [page, rowsPerPage]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
     };
 
@@ -69,6 +73,7 @@ const TripsTable = () => {
             <>
                 <TableComponent
                     page={page}
+                    pageCount={pageCount}
                     changePageHandler={handleChangePage}
                     rowPerPageHandler={handleChangeRowsPerPage}
                     onClickHandler={handleOnClick}

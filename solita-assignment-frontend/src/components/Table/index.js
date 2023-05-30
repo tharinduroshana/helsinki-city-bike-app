@@ -7,7 +7,7 @@ import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import {Table} from "@mui/material";
 
-const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler, changePageHandler, rowPerPageHandler }) => {
+const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler, changePageHandler, rowPerPageHandler, pageCount }) => {
   return (
       <div className="trip-table">
           <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -28,7 +28,6 @@ const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler,
                       </TableHead>
                       <TableBody>
                           {data
-                              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                               .map((row) => {
                                   return (
                                       <TableRow onClick={() => onClickHandler(row.id)} hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -51,7 +50,7 @@ const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler,
               <TablePagination
                   rowsPerPageOptions={[10, 25, 100]}
                   component="div"
-                  count={data.length}
+                  count={pageCount}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={changePageHandler}
