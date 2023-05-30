@@ -42,9 +42,8 @@ const TripsTable = () => {
             const json = await response.json();
             const { trips, pageCount } = json;
 
-            console.log(trips);
-            const mappedTripps = trips.map(trip => ({ ...trip, covered_distance: (Math.round((trip['covered_distance']/1000) * 100) / 100).toFixed(2), duration: (Math.round((trip['duration']/60) * 100) / 100).toFixed(2) }));
-            setTrips(mappedTripps);
+            const mappedTrips = trips.map(trip => ({ ...trip, covered_distance: (Math.round((trip['covered_distance']/1000) * 100) / 100).toFixed(2), duration: (Math.round((trip['duration']/60) * 100) / 100).toFixed(2) }));
+            setTrips(mappedTrips);
             setPageCount(pageCount);
         } catch (e) {
             console.error("Error fetching trips.", e);
