@@ -12,7 +12,9 @@ const TripScreen = () => {
         try {
             const trip = await fetch(`http://localhost:4000/trips/${id}`);
             const json = await trip.json();
-            setTrip(json);
+
+            const modifiedTrip = { ...json, covered_distance: (Math.round((json['covered_distance']/1000) * 100) / 100).toFixed(2), duration: (Math.round((json['duration']/60) * 100) / 100).toFixed(2) }
+            setTrip(modifiedTrip);
         } catch (e) {
             console.error(`Error fetching trip with ID: ${id}`, e);
             throw e;
@@ -46,11 +48,11 @@ const TripScreen = () => {
                 </div>
                 <div className="detail">
                     <span className="label">Distance Travelled:</span>
-                    <span>{trip && trip["covered_distance"]}</span>
+                    <span>{trip && (trip["covered_distance"] + " km")}</span>
                 </div>
                 <div className="detail">
                     <span className="label">Spent Time:</span>
-                    <span>{trip && trip["duration"]}</span>
+                    <span>{trip && (trip["duration"] + " minutes")}</span>
                 </div>
             </div>
         )
