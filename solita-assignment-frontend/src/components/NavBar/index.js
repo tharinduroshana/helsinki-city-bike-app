@@ -6,7 +6,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <AppBar position='stick'>
+        <AppBar position='sticky'>
             <Toolbar>
                 <IconButton size='large' edge='start' color='inherit'>
                     <DirectionsBikeIcon />
