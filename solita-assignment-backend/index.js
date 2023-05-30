@@ -33,7 +33,6 @@ app.get('/trips', (req, res) => {
         }
 
         connection.query(`SELECT * FROM ${table_name} LIMIT ${pageSize} OFFSET ${offset}`, (err, results) => {
-            connection.release();
 
             if (err) {
                 // Handle query error
@@ -41,8 +40,18 @@ app.get('/trips', (req, res) => {
                 return res.status(500).json({ error: 'Error executing query' });
             }
 
-            res.setHeader('Content-Type', 'application/json');
-            res.json(results);
+            connection.query(`SELECT COUNT(*) AS total FROM ${table_name}`, (error, count) => {
+                connection.release();
+
+                if (error) {
+                    // Handle query error
+                    console.error('Error executing query', err);
+                    return res.status(500).json({ error: 'Error executing query' });
+                }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.json({ trips: results, pageCount: count[0].total });
+            });
         });
     });
 });
@@ -90,7 +99,6 @@ app.get('/stations', (req, res) => {
         }
 
         connection.query(`SELECT DISTINCT id, name, adress, operaattor from stations LIMIT ${pageSize} OFFSET ${offset}`, (err, results) => {
-            connection.release();
 
             if (err) {
                 // Handle query error
@@ -98,8 +106,18 @@ app.get('/stations', (req, res) => {
                 return res.status(500).json({ error: 'Error executing query' });
             }
 
-            res.setHeader('Content-Type', 'application/json');
-            res.json(results);
+            connection.query(`SELECT COUNT(DISTINCT id) AS total FROM stations`, (error, count) => {
+                connection.release();
+
+                if (error) {
+                    // Handle query error
+                    console.error('Error executing query', err);
+                    return res.status(500).json({ error: 'Error executing query' });
+                }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.json({ stations: results, pageCount: count[0].total });
+            });
         });
     });
 });
