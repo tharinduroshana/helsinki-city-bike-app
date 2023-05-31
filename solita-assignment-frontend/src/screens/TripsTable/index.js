@@ -29,6 +29,9 @@ const columns = [
     },
 ];
 
+/*
+* This screen renders list of Trips.
+* */
 const TripsTable = () => {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);

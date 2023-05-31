@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import "./TripScreen.css";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-
+/*
+* This screen displays details of a single chosen trip.
+* Params:
+* - id: this is used to fetch trip info from the backend.
+* */
 const TripScreen = () => {
     const { id } = useParams();
     const [trip, setTrip] = useState(null);

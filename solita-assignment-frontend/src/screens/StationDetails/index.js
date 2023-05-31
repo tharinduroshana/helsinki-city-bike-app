@@ -3,6 +3,11 @@ import {useState, useEffect} from "react";
 import "./StationDetails.css";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
+/*
+* This screen displays details of a single chosen station.
+* Params:
+* - id: this is used to fetch station info from the backend.
+* */
 const StationDetails = () => {
     const { id } = useParams();
     const [stationInfo, setStationInfo] = useState(null);

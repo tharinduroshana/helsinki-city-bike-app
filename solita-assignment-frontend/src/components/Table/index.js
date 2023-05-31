@@ -8,6 +8,18 @@ import TablePagination from "@mui/material/TablePagination";
 import {Table} from "@mui/material";
 import { useRef } from "react";
 
+/*
+* TableComponent is a re-usable component which is used to render a list of fetched data.
+* Parameters:
+* - columns: the columns are rendered based of the object provided.
+* - data: fetched array of data.
+* - rowsPerPage: Indicates the number of records shown once in the table.
+* - page: The current page showing.
+* - onClickHandler: Triggers this function when user clicked on one of the rows in the table.
+* - changePageHandler: Triggers this function when user clicked on next/previous page buttons.
+* - rowPerPageHandler: Triggers this function when user clicks on a different number of records from drop-down.
+* - pageCount: This is used to indicate how many pages.
+* */
 const TableComponent = ({ columns, data = [], rowsPerPage, page, onClickHandler, changePageHandler, rowPerPageHandler, pageCount }) => {
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
 

@@ -9,6 +9,9 @@ const columns = [
     {id: 'adress', label: 'Address', align: 'right'},
 ];
 
+/*
+* This screen renders list of Stations.
+* */
 const StationsTable = () => {
     const [ stations, setStations ] = useState([]);
     const [ pageCount, setPageCount ] = useState(0);

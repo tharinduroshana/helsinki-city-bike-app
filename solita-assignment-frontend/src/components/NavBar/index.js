@@ -2,6 +2,9 @@ import {AppBar, Toolbar, IconButton, Typography, Stack, Button} from "@mui/mater
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import {useNavigate} from "react-router-dom";
 
+/*
+* NavBar component renders the navigation bar
+* */
 const NavBar = () => {
     const navigate = useNavigate();
 
