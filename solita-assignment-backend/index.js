@@ -2,16 +2,25 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 
+/*
+ * This file opens up the server required by solita dev assessment frontend.
+ */
+
 const app = express();
 app.use(cors())
 
+// Name of the database
 const database_name = "helsinki_city_bike_db";
+// Name of the trips table
 const table_name = "trips";
+// Database credentials. These must be replaced by developer's database credentials
+const db_username = 'root';
+const db_password = 'root';
 
 const pool = mysql.createPool({
     host: 'localhost',
-    user: 'root',
-    password: 'root@123',
+    user: db_username,
+    password: db_password,
     database: database_name,
     connectionLimit: 10, // Adjust the value as per your requirements
 });
@@ -20,6 +29,12 @@ app.get('/', (req, res) => {
     res.send('Test Endpoint!');
 });
 
+/*
+* This endpoint returns a list of trips from trips table.
+* Query params
+* - page: Calculates the offset based on the page number
+* - pageSize: Number of records which needs to be sent as the response
+* */
 app.get('/trips', (req, res) => {
     const page = parseInt(req.query.page) || 1; // Get the page number from query parameter, default to 1
     const pageSize = parseInt(req.query.pageSize) || 10; // Get the page size from query parameter, default to 10
@@ -56,6 +71,11 @@ app.get('/trips', (req, res) => {
     });
 });
 
+/*
+* This endpoint returns a trip retrieved from trip ID
+* Request params
+* - id: ID of the trip
+* */
 app.get('/trips/:id', (req, res) => {
     const { params: { id } } = req;
 
@@ -86,6 +106,12 @@ app.get('/trips/:id', (req, res) => {
     });
 });
 
+/*
+* This endpoint returns a list of stations from trips table.
+* Query params
+* - page: Calculates the offset based on the page number
+* - pageSize: Number of records which needs to be sent as the response
+* */
 app.get('/stations', (req, res) => {
     const page = parseInt(req.query.page) || 1; // Get the page number from query parameter, default to 1
     const pageSize = parseInt(req.query.pageSize) || 10; // Get the page size from query parameter, default to 10
@@ -122,6 +148,11 @@ app.get('/stations', (req, res) => {
     });
 });
 
+/*
+* This endpoint returns a station retrieved from station ID
+* Request params
+* - id: ID of the station
+* */
 app.get('/stations/:id', (req, res) => {
     const { params: { id } } = req;
 
